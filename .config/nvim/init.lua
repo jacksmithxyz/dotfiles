@@ -17,7 +17,6 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Global settings and keybinds
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
 
 vim.opt.cursorline = true
 vim.opt.number = true
@@ -49,9 +48,6 @@ require("lazy").setup({
 
 require("lspconfig").lua_ls.setup{}
 require("lspconfig").pyright.setup{}
-require("lspconfig").ruff.setup{}
-require("lspconfig").rust_analyzer.setup{}
-require("lspconfig").zls.setup{}
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
