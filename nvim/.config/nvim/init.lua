@@ -24,8 +24,7 @@ vim.opt.relativenumber = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-
-vim.diagnostic.disable()
+vim.opt.textwidth = 80
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -37,7 +36,7 @@ require("lazy").setup({
 	    { "nvim-lualine/lualine.nvim", dependencies = { 'nvim-tree/nvim-web-devicons' }, opts = {} },
 		{ "nvim-telescope/telescope.nvim", dependencies = { 'nvim-lua/plenary.nvim' } },
 		{ "nvim-tree/nvim-tree.lua", opts = {} },
-	    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	    { "nvim-treesitter/nvim-treesitter", lazy = false, build = ":TSUpdate" },
 	    { "williamboman/mason.nvim", opts = {} },
 	    { "williamboman/mason-lspconfig.nvim", opts = {} },
     }
@@ -46,8 +45,20 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
-require("lspconfig").lua_ls.setup{}
-require("lspconfig").pyright.setup{}
+require'nvim-treesitter.configs'.setup {
+    highlight = {
+        enable = true
+    }
+}
+
+require('telescope').setup({
+  defaults = {
+    file_ignore_patterns = {
+      "node_modules/.*",
+      "%.lock",
+    }
+  }
+})
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
